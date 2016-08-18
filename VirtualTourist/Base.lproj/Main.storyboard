@@ -1,25 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U75-wR-Wfn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Virtual Tourist-->
+        <scene sceneID="gC3-5T-lYC">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Iup-zC-f3b" customClass="TravelLocationsViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="46N-uq-zrV"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZeN-Yu-PZp"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="0Pm-mg-AMD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-Xc-Iaa">
+                                <rect key="frame" x="2" y="64" width="596" height="499"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pins to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Coh-nx-Leq">
+                                <rect key="frame" x="2" y="563" width="596" height="37"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="92E-Oz-qdW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AYp-Xc-Iaa" firstAttribute="top" secondItem="46N-uq-zrV" secondAttribute="bottom" id="8NF-VU-HFU"/>
+                            <constraint firstItem="Coh-nx-Leq" firstAttribute="bottom" secondItem="ZeN-Yu-PZp" secondAttribute="top" id="9Wd-TP-R9g"/>
+                            <constraint firstItem="Coh-nx-Leq" firstAttribute="trailing" secondItem="AYp-Xc-Iaa" secondAttribute="trailing" id="GEE-CE-BuY"/>
+                            <constraint firstItem="AYp-Xc-Iaa" firstAttribute="leading" secondItem="Coh-nx-Leq" secondAttribute="leading" id="Hec-Ed-RNS"/>
+                            <constraint firstItem="AYp-Xc-Iaa" firstAttribute="leading" secondItem="0Pm-mg-AMD" secondAttribute="leadingMargin" constant="-18" id="KFS-Jh-RcK"/>
+                            <constraint firstItem="AYp-Xc-Iaa" firstAttribute="centerX" secondItem="0Pm-mg-AMD" secondAttribute="centerX" id="O0P-ob-bcw"/>
+                            <constraint firstItem="Coh-nx-Leq" firstAttribute="top" secondItem="AYp-Xc-Iaa" secondAttribute="bottom" id="WM4-oF-e5h"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Virtual Tourist" id="BLj-Fv-6fk">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="LRV-uN-Dk9">
+                            <connections>
+                                <action selector="editClicked:" destination="Iup-zC-f3b" id="11J-ED-RTr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="deleteLabel" destination="Coh-nx-Leq" id="ZLN-bm-0SY"/>
+                        <outlet property="deletePinsLabel" destination="Coh-nx-Leq" id="Tqh-TS-JHJ"/>
+                        <outlet property="editButton" destination="BLj-Fv-6fk" id="6kl-UW-IV0"/>
+                        <outlet property="mapView" destination="AYp-Xc-Iaa" id="OXJ-HT-Lzz"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4n0-Jq-nKl" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-133" y="239"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eA2-Ad-r9g">
+            <objects>
+                <navigationController id="U75-wR-Wfn" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v9T-vB-RCJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Iup-zC-f3b" kind="relationship" relationship="rootViewController" id="zYl-ek-Ald"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTt-9x-DD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-953" y="239"/>
         </scene>
     </scenes>
 </document>

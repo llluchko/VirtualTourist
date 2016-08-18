@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import MapKit
+import CoreData
+import CoreLocation
 
-class ViewController: UIViewController {
+class TravelLocationsViewController: UIViewController {
+	@IBOutlet weak var mapView: MKMapView!
 
+	@IBOutlet weak var deletePinsLabel: UILabel!
+	
+	@IBOutlet weak var editButton: UINavigationItem!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
