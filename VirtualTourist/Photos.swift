@@ -12,4 +12,7 @@ import UIKit
 
 class Photos: NSManagedObject {
 	
+	
+
+	
 }

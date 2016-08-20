@@ -19,6 +19,7 @@
 		6961067C1D6707640046109F /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6961067B1D6707640046109F /* Photos.swift */; };
 		6961067E1D6707D10046109F /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6961067D1D6707D10046109F /* Pin.swift */; };
 		696106801D6708400046109F /* Pin+CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6961067F1D6708400046109F /* Pin+CoreDataStack.swift */; };
+		696106821D688E0B0046109F /* Photos+CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696106811D688E0B0046109F /* Photos+CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6961067B1D6707640046109F /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		6961067D1D6707D10046109F /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		6961067F1D6708400046109F /* Pin+CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataStack.swift"; sourceTree = "<group>"; };
+		696106811D688E0B0046109F /* Photos+CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photos+CoreDataStack.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				695F40381D66132200EA6828 /* Controller */,
 				694A83451D52316800C41252 /* AppDelegate.swift */,
 				6961067B1D6707640046109F /* Photos.swift */,
+				696106811D688E0B0046109F /* Photos+CoreDataStack.swift */,
 				6961067D1D6707D10046109F /* Pin.swift */,
 				6961067F1D6708400046109F /* Pin+CoreDataStack.swift */,
 				696106791D6701CA0046109F /* CoreDataStack.swift */,
@@ -170,6 +173,7 @@
 				696106801D6708400046109F /* Pin+CoreDataStack.swift in Sources */,
 				6961067E1D6707D10046109F /* Pin.swift in Sources */,
 				6961067A1D6701CA0046109F /* CoreDataStack.swift in Sources */,
+				696106821D688E0B0046109F /* Photos+CoreDataStack.swift in Sources */,
 				694A834E1D52316800C41252 /* VirtualTourist.xcdatamodeld in Sources */,
 				695F40371D66121B00EA6828 /* PhotoAlbumViewController.swift in Sources */,
 				6961067C1D6707640046109F /* Photos.swift in Sources */,
