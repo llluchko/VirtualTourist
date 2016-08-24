@@ -11,7 +11,7 @@ import MapKit
 import CoreData
 import CoreLocation
 
-class TravelLocationsViewController: UIViewController {
+class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 	@IBOutlet weak var mapView: MKMapView!
 
 	@IBOutlet weak var deletePinsLabel: UILabel!
@@ -20,14 +20,16 @@ class TravelLocationsViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
+		
+		// Set the map view delegate
+		mapView.delegate = self
+		
 	}
 
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
+	
+	// TO-DO : - When a pin is tapped, it will transition to the Phone Album View Controller
+	
+	// TO-DO: Start by updating the view for the annotation. This is necessary because it allows you to intercept taps on the annotation's view (the pin).
 
 }
 

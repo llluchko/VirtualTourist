@@ -44,14 +44,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="BLj-Fv-6fk">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="LRV-uN-Dk9">
-                            <connections>
-                                <action selector="editClicked:" destination="Iup-zC-f3b" id="11J-ED-RTr"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="LRV-uN-Dk9"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="deleteLabel" destination="Coh-nx-Leq" id="ZLN-bm-0SY"/>
                         <outlet property="deletePinsLabel" destination="Coh-nx-Leq" id="Tqh-TS-JHJ"/>
                         <outlet property="editButton" destination="BLj-Fv-6fk" id="6kl-UW-IV0"/>
                         <outlet property="mapView" destination="AYp-Xc-Iaa" id="OXJ-HT-Lzz"/>
