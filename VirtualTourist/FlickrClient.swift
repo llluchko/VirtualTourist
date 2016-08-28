@@ -31,9 +31,10 @@ class FlickrClient: NSObject {
 			data, response, downloadError in
 			
 			if let error = downloadError {
-				// TO-DO: Create method errorForResponse
+				let newError = FlickrClient.errorForResponse(data, response: response, error: error)
+				completionHandler(result: nil, error: newError)
 			} else {
-				// TO-DO: Create method parseJSON
+				FlickrClient.parseJSONWithComplitionHandler(data!, completionHandler: completionHandler)
 			}
 		}
 		
@@ -41,6 +42,50 @@ class FlickrClient: NSObject {
 		task.resume()
 		
 	}
+	
+	// MARK: - Helpers
+	
+	// Given raw JSON, return a usable Foundation object
+	class func parseJSONWithComplitionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
+	
+		var parsingError: NSError?
+		let parsedResult: AnyObject?
+		
+		do {
+			parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+		} catch let error as NSError {
+			parsingError = error
+			parsedResult = nil
+			print("Parsing error - \(parsingError!.localizedDescription)")
+			return
+		}
+		
+		if let error = parsingError {
+			completionHandler(result: nil, error: error)
+		} else {
+			completionHandler(result: parsedResult, error: nil)
+		}
+	}
+	
+	
+	// Get error for response 
+	class func errorForResponse(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
+		if let parsedResult  = (try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)) as? [String: AnyObject] {
+			
+			if let status = parsedResult[JSONResponseKeys.Status] as? String,
+				message = parsedResult[JSONResponseKeys.Message] as? String {
+				
+				if status == JSONResponseValues.Fail {
+					
+					let userInfo = [NSLocalizedDescriptionKey: message]
+					
+					return NSError(domain: "Virtual Tourist Error", code: 1, userInfo: userInfo)
+				}
+			}
+		}
+		return error
+	}
+	
 	
 	// Given a dictionary of parameters, convert to a string for a url
 	class func escapedParameters(parameters: [String : AnyObject]) -> String {
