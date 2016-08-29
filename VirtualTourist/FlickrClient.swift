@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FlickrClient: NSObject {
 	
@@ -86,6 +87,14 @@ class FlickrClient: NSObject {
 		return error
 	}
 	
+	// Substitute the key for the value that is contained within the method name
+	class func substitudeKeyInMethod(method: String, key: String, value: String) -> String? {
+		if method.rangeOfString("{\(key)}") != nil {
+			return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
+		} else {
+			return nil
+		}
+	}
 	
 	// Given a dictionary of parameters, convert to a string for a url
 	class func escapedParameters(parameters: [String : AnyObject]) -> String {
@@ -107,6 +116,32 @@ class FlickrClient: NSObject {
 		}
 		
 		return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
+	}
+	
+	// Show error alert
+	func showAlert(message: NSError, viewController: AnyObject) {
+		let errMessage = message.localizedDescription
+		
+		let alert = UIAlertController(title: nil, message: errMessage, preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
+			alert.dismissViewControllerAnimated(true, completion: nil)
+		}))
+		
+		viewController.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	// Open an URL
+	func openURL(urlString: String) {
+		let url = NSURL(string: urlString)
+		UIApplication.sharedApplication().openURL(url!)
+	}
+	
+	// Shared Instance
+	class func sharedInstance() -> FlickrClient {
+		struct Singleton {
+			static var sharedInstance = FlickrClient()
+		}
+		return Singleton.sharedInstance
 	}
 
 }
