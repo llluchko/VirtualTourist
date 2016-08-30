@@ -18,6 +18,32 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 	
 	@IBOutlet weak var editButton: UINavigationItem!
 	
+	var pins = [Pin]()
+	var selectedPin: Pin? = nil
+	
+	// Flag for editing mode
+	var editingPins = false
+	
+	// Core Data
+	var sharedContext: NSManagedObjectContext {
+		return CoreDataStack.sharedInstance().managedObjectContext
+	}
+	
+	func fetchAllPins() -> [Pin] {
+		
+		// Create the fetch request
+		let fetchRequest = NSFetchRequest(entityName: "Pin")
+		
+		// Execute the fetch request
+		do {
+			return try sharedContext.executeFetchRequest(fetchRequest) as! [Pin]
+		} catch {
+			print("error in fetch")
+			return [Pin]()
+		}
+	}
+
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
