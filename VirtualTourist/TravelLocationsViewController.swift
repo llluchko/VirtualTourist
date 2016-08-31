@@ -47,11 +47,30 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// TO-DO: - Add long press handle
+		
 		// Set the map view delegate
 		mapView.delegate = self
 		
+		// TO-DO: - Add Delete label
+		
+		// addSavedPinsToMap()
+		
 	}
 
+	// Find saved pins and show it on the map
+	func addSavedPinsToMap() {
+		
+		pins = fetchAllPins()
+		print("Pins in core data are \(pins.count)")
+		
+		for pin in pins {
+			let annotation = MKPointAnnotation()
+			annotation.coordinate = pin.coordinate
+			annotation.title = pin.pinTitle
+			mapView.addAnnotation(annotation)
+		}
+	}
 	
 	// TO-DO : - When a pin is tapped, it will transition to the Phone Album View Controller
 	
