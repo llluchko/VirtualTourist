@@ -65,7 +65,7 @@ class Photos: NSManagedObject {
 			do {
 				try NSFileManager.defaultManager().removeItemAtURL(fileURL)
 			} catch let error as NSError {
-				print("Error from prepareForDeletionv - \(error)")
+				print("Error from prepareForDeletion - \(error)")
 			}
 			
 		} else {

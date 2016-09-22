@@ -11,7 +11,7 @@ import UIKit
 
 class FlickrClient: NSObject {
 	
-	var numOfPhotosDownloaded = 0
+	var numOfPhotoDownloaded = 0
 	
 	// Shared session
 	var session: NSURLSession
@@ -43,6 +43,31 @@ class FlickrClient: NSObject {
 		task.resume()
 		
 	}
+	
+	func taskForGETMethod(urlString: String,
+	                      completionHandler: (result: NSData?, error: NSError?) -> Void) {
+		
+		// Create the request
+		let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		
+		// Make the request
+		let task = session.dataTaskWithRequest(request) {
+			data, response, downloadError in
+			
+			if let error = downloadError {
+				
+				let newError = FlickrClient.errorForResponse(data, response: response, error: error)
+				completionHandler(result: nil, error: newError)
+			} else {
+				
+				completionHandler(result: data, error: nil)
+			}
+		}
+		
+		// Start the request
+		task.resume()
+	}
+	
 	
 	// MARK: - Helpers
 	
@@ -118,7 +143,7 @@ class FlickrClient: NSObject {
 		return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
 	}
 	
-	// Show error alert
+	// MARK: - Show error alert
 	func showAlert(message: NSError, viewController: AnyObject) {
 		let errMessage = message.localizedDescription
 		
@@ -130,13 +155,13 @@ class FlickrClient: NSObject {
 		viewController.presentViewController(alert, animated: true, completion: nil)
 	}
 	
-	// Open an URL
+	// MARK: - Open an URL
 	func openURL(urlString: String) {
 		let url = NSURL(string: urlString)
 		UIApplication.sharedApplication().openURL(url!)
 	}
 	
-	// Shared Instance
+	// MARK: - Shared Instance
 	class func sharedInstance() -> FlickrClient {
 		struct Singleton {
 			static var sharedInstance = FlickrClient()
