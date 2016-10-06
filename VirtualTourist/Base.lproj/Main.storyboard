@@ -104,8 +104,8 @@
                                             <subviews>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="v4X-Q8-yMC"/>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qQa-NO-I94"/>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y1b-3g-1oL">
-                                                    <state key="normal" image="deleteButton"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y1b-3g-1oL">
+                                                    <state key="normal" image="selectForDeleteButton"/>
                                                     <state key="highlighted" image="deleteButton"/>
                                                 </button>
                                             </subviews>
@@ -119,7 +119,7 @@
                                             <constraint firstItem="v4X-Q8-yMC" firstAttribute="top" secondItem="zoh-7l-xaH" secondAttribute="topMargin" constant="33" id="ika-bn-sHH"/>
                                             <constraint firstItem="y1b-3g-1oL" firstAttribute="centerX" secondItem="v4X-Q8-yMC" secondAttribute="centerX" id="jrO-54-aum"/>
                                             <constraint firstItem="v4X-Q8-yMC" firstAttribute="leading" secondItem="zoh-7l-xaH" secondAttribute="leadingMargin" constant="33" id="sy4-BW-TyS"/>
-                                            <constraint firstItem="y1b-3g-1oL" firstAttribute="leading" secondItem="zoh-7l-xaH" secondAttribute="leadingMargin" constant="20" id="w6q-HC-a86"/>
+                                            <constraint firstItem="y1b-3g-1oL" firstAttribute="leading" secondItem="zoh-7l-xaH" secondAttribute="leadingMargin" constant="30" id="w6q-HC-a86"/>
                                             <constraint firstItem="y1b-3g-1oL" firstAttribute="centerY" secondItem="qQa-NO-I94" secondAttribute="centerY" id="wjm-1T-u5i"/>
                                         </constraints>
                                         <connections>
@@ -130,7 +130,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gpD-iA-i6h">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gpD-iA-i6h">
+                                <frame key="frameInset" width="624" height="695"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="270" id="740-iH-2KJ"/>
                                 </constraints>
@@ -221,5 +222,6 @@
     </scenes>
     <resources>
         <image name="deleteButton" width="15" height="15"/>
+        <image name="selectForDeleteButton" width="256" height="256"/>
     </resources>
 </document>

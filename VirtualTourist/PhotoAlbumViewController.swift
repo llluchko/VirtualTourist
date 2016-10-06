@@ -89,6 +89,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoAlbumViewController.photoReload(_:)), name: "downloadPhotoImage.done", object: nil)
 	}
 	
+
 	// Inserting dispatch_async to ensure the closure always run in the main thread
 	func photoReload(notification: NSNotification) {
 		dispatch_async(dispatch_get_main_queue(), {
@@ -117,7 +118,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		
 		// Hiding the button once it's tapped, because I want to finish either deleting or reloading first
 		bottomButton.hidden = true
-		
+		editingFlag = false
 		// If deleting flag is true, delete the photo
 		if isDeleting == true
 		{
@@ -146,6 +147,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 			
 			// Change the button to say 'New Collection' after deletion
 			bottomButton.setTitle("New Collection", forState: UIControlState.Normal)
+			bottomButton.enabled = true
 			bottomButton.hidden = false
 			self.navigationItem.rightBarButtonItem?.enabled = true
 			
@@ -218,7 +220,8 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		if editingFlag == false {
 			editingFlag = true
 			self.navigationItem.rightBarButtonItem?.enabled = false
-			//bottomButton.setTitle("Tap photos to delete", forState: UIControlState.Normal)
+			bottomButton.setTitle("Tap photos to delete", forState: UIControlState.Normal)
+			bottomButton.enabled = false
 		}
 			
 		else if editingFlag {
@@ -257,11 +260,12 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 				selectedIndexofCollectionViewCells.append(indexPath)
 				cell.deleteButton.hidden = false
 				bottomButton.setTitle("New Collection", forState: UIControlState.Normal)
+				bottomButton.enabled = true
 			}
 			
 			// If the selectedIndexofCollectionViewCells array is not empty, show the 'Delete # photo(s)' button
 			if selectedIndexofCollectionViewCells.count > 0 {
-				
+				bottomButton.enabled = true
 				print("Delete array has \(selectedIndexofCollectionViewCells.count) photo(s).")
 				if selectedIndexofCollectionViewCells.count == 1{
 					bottomButton.setTitle("Delete \(selectedIndexofCollectionViewCells.count) photo", forState: UIControlState.Normal)
@@ -271,6 +275,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 				isDeleting = true
 			} else{
 				bottomButton.setTitle("New Collection", forState: UIControlState.Normal)
+				bottomButton.enabled = true
+				self.navigationItem.rightBarButtonItem?.enabled = true
+				editingFlag = false
 				isDeleting = false
 			}
 		}
@@ -290,7 +297,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		cell.deleteButton.layer.setValue(indexPath, forKey: "indexPath")
 		
 		// Trigger the action 'deletePhoto' when the button is tapped
-		cell.deleteButton.addTarget(self, action: #selector(PhotoAlbumViewController.deletePhoto(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+		//	cell.deleteButton.addTarget(self, action: #selector(PhotoAlbumViewController.deletePhoto(_:)), forControlEvents: UIControlEvents.TouchUpInside)
 		
 		return cell
 	}
