@@ -1,3 +1,4 @@
+
 //
 //  FlickrConvenient.swift
 //  VirtualTourist
@@ -10,7 +11,7 @@ import Foundation
 import CoreData
 
 extension FlickrClient {
-
+	
 	// Initiates a download from Flickr
 	func downloadPhotosForPin(pin: Pin, completionHandler: (success: Bool, error: NSError?) -> Void) {
 		
@@ -57,16 +58,18 @@ extension FlickrClient {
 						
 						guard let photoURLString = photoDictionary[URLValues.URLMediumPhoto] as? String else {
 							print ("error, photoDictionary)"); continue}
+
+
 						
 						// Create the Photos model
-						let newPhoto = Photos(photoURL: photoURLString, pin: pin, context: self.sharedContext)
+						let newPhoto = Photos(url: photoURLString, pin: pin, context: self.sharedContext)
 						
 						
 						// Download photo by url
 						self.downloadPhotoImage(newPhoto, completionHandler: {
 							success, error in
 							
-							//print("Downloading photo by URL - \(success): \(error)")
+							print("Downloading photo by URL - \(success): \(error)")
 							
 							self.numOfPhotoDownloaded = self.numOfPhotoDownloaded - 1
 							
@@ -88,7 +91,7 @@ extension FlickrClient {
 			}
 		})
 	}
-
+	
 	// Download save image and change file path for photo
 	func downloadPhotoImage(photo: Photos, completionHandler: (success: Bool, error: NSError?) -> Void) {
 		
@@ -101,36 +104,25 @@ extension FlickrClient {
 			// If there is an error - set file path to error to show blank image
 			if let error = error {
 				print("Error from downloading images \(error.localizedDescription )")
-				photo.filePath = "error"
+				//photo.filePath = "error"
 				completionHandler(success: false, error: error)
 				
 			} else {
 				
 				if let result = result {
 					
-					// Get file name and file url
-					let fileName = (imageURLString! as NSString).lastPathComponent
-					let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-					let pathArray = [dirPath, fileName]
-					let fileURL = NSURL.fileURLWithPathComponents(pathArray)!
-					//print(fileURL)
-					
-					// Save file
-					NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: result, attributes: nil)
-					
-					// Update the Photos model
-					photo.filePath = fileURL.path
+					photo.imageData = result
 					
 					completionHandler(success: true, error: nil)
 				}
 			}
 		})
 	}
-
+	
 	// MARK: - Core Data Convenience
-
+	
 	var sharedContext: NSManagedObjectContext {
 		return CoreDataStack.sharedInstance().managedObjectContext
 	}
-
+	
 }

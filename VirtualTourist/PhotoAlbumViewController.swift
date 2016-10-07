@@ -45,8 +45,8 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		// Limit the fetch request to just those photos related to the Pin.
 		fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!)
 		
-		// Sort the fetch request by title, ascending.
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+		// Sort the fetch request by imageData, ascending.
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "url", ascending: true)]
 		
 		// Create fetched results controller with the new fetch request.
 		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -89,7 +89,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoAlbumViewController.photoReload(_:)), name: "downloadPhotoImage.done", object: nil)
 	}
 	
-
+	
 	// Inserting dispatch_async to ensure the closure always run in the main thread
 	func photoReload(notification: NSNotification) {
 		dispatch_async(dispatch_get_main_queue(), {
@@ -289,12 +289,41 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCollectionViewCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
 		let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photos
-		//print("Photo URL from the collection view is \(photo.url)")
+		print("Photo URL from the collection view is \(photo.url)")
 		
 		cell.photoView.image = photo.image
 		
+//		if let imageData = photo.imageData {
+//			
+//			cell.photoView.image = UIImage(data: imageData)
+//		
+//		} else{
+//			// Download the photo image
+//			FlickrClient.sharedInstance().downloadPhotoImage(photo, completionHandler: {
+//				imageData, success, error in
+//				
+//				if success {
+//					dispatch_async(dispatch_get_main_queue(), {
+//						CoreDataStack.sharedInstance().saveContext()
+//					})
+//				} else {
+//					dispatch_async(dispatch_get_main_queue(), {
+//						print("error downloading a new set of photos")
+//						//self.bottomButton.hidden = false
+//					})
+//				}
+//				// Update cells
+//				dispatch_async(dispatch_get_main_queue(), {
+//					self.reFetch()
+//					self.collectionView.reloadData()
+//				})
+//				
+//			})
+//		}
+//		
 		cell.deleteButton.hidden = true
 		cell.deleteButton.layer.setValue(indexPath, forKey: "indexPath")
+		
 		
 		// Trigger the action 'deletePhoto' when the button is tapped
 		//	cell.deleteButton.addTarget(self, action: #selector(PhotoAlbumViewController.deletePhoto(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -326,6 +355,5 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		reFetch()
 		collectionView.reloadData()
 	}
-	
 	
 }

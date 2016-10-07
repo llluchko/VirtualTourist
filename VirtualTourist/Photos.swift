@@ -14,67 +14,34 @@ class Photos: NSManagedObject {
 	
 	var	image: UIImage? {
 		
-		if let filePath = filePath {
-			
-			// Check to see if there's an error downloading the images for each Pin
-			if filePath == "error" {
-				print("Img error")
-				return UIImage(named: "404.jpg")
-			}
-		
-			// Get the file path
-		
-			let fileName = (filePath as NSString).lastPathComponent
-			let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-			let pathArray = [dirPath, fileName]
-			let fileURL = NSURL.fileURLWithPathComponents(pathArray)!
-		
-			return UIImage(contentsOfFile: fileURL.path!)
-			
+		if let imageData = imageData {
+			return UIImage(data: imageData)
 		}
-	
+		
 		return nil
-	
 	}
 	
 	// MARK: - Init model
 	override init (entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-		
 		super.init(entity: entity, insertIntoManagedObjectContext: context)
 	}
 	
-	init(photoURL: String, pin: Pin, context: NSManagedObjectContext) {
+	init(url: String, pin: Pin, context: NSManagedObjectContext) {
 		
 		let entity = NSEntityDescription.entityForName("Photos", inManagedObjectContext: context)!
 		super.init(entity: entity, insertIntoManagedObjectContext: context)
 		
-		self.url = photoURL
+		self.url = url
 		self.pin = pin
 		
 		print("init from Photos.swift\(url)")
 	}
 	
-	// MARK: - Delete file when deleteing a managed object
-	override func prepareForDeletion() {
-		 super.prepareForDeletion()
-		
-		if filePath != nil {
-			// Delete the associated image file when the Photos managed object is deleted.
-			let fileName = (filePath! as NSString).lastPathComponent
-			let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-			let pathArray = [dirPath, fileName]
-			let fileURL = NSURL.fileURLWithPathComponents(pathArray)!
-			
-			do {
-				try NSFileManager.defaultManager().removeItemAtURL(fileURL)
-			} catch let error as NSError {
-				print("Error from prepareForDeletion - \(error)")
-			}
-			
-		} else {
-		 		print("File path is empty")
-		}
+	
+	var sharedContext: NSManagedObjectContext {
+		return CoreDataStack.sharedInstance().managedObjectContext
 	}
+	
 }
 
 	

@@ -21,7 +21,7 @@ class CoreDataStack {
 		
 		return Static.instance
 	}
-	
+
 	// MARK: - The Core Data stack. Get the code from AppDelegate
 	lazy var applicationDocumentsDirectory: NSURL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "com.latchezar.VirtualTourist" in the application's documents Application Support directory.
@@ -44,8 +44,12 @@ class CoreDataStack {
 		print("sqlite path: \(url!.path!)")
 		
 		var failureReason = "There was an error creating or loading the application's saved data."
+		// Options for migration
+		let options = [NSInferMappingModelAutomaticallyOption: true,
+		               NSMigratePersistentStoresAutomaticallyOption: true]
+
 		do {
-			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
 		} catch {
 			// Report any error we got.
 			var dict = [String: AnyObject]()
@@ -87,5 +91,4 @@ class CoreDataStack {
 		}
 	}
 
-	
 }

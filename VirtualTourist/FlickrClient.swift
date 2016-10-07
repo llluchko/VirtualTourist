@@ -9,16 +9,15 @@
 import Foundation
 import UIKit
 
-class FlickrClient: NSObject {
+class FlickrClient {
 	
 	var numOfPhotoDownloaded = 0
 	
 	// Shared session
 	var session: NSURLSession
 	
-	override init() {
+	init() {
 		session = NSURLSession.sharedSession()
-		super.init()
 	}
 	
 	func taskForGetMethodWithParams(parameters: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
@@ -92,7 +91,6 @@ class FlickrClient: NSObject {
 			completionHandler(result: parsedResult, error: nil)
 		}
 	}
-	
 	
 	// Get error for response 
 	class func errorForResponse(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {

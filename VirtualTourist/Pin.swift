@@ -34,5 +34,4 @@ class Pin: NSManagedObject {
 		return CoreDataStack.sharedInstance().managedObjectContext
 	}
 	
-	
 }

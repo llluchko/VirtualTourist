@@ -16,7 +16,6 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var deletePinsLabel: UILabel!
 	
-	
 	var pins = [Pin]()
 	var selectedPin: Pin? = nil
 	
@@ -42,15 +41,14 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: #selector(TravelLocationsViewController.edit))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: #selector(TravelLocationsViewController.edit))
 		
 		let longPressRecogniser = UILongPressGestureRecognizer(target: self, action: #selector(TravelLocationsViewController.handleLongPress(_:)))
 		
-		longPressRecogniser.minimumPressDuration = 1.0
+		longPressRecogniser.minimumPressDuration = 0.5
 		mapView.addGestureRecognizer(longPressRecogniser)
 		
 		// Set the map view delegate
@@ -80,11 +78,11 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 		if editingPins == false {
 			editingPins = true
 			deletePinsLabel.hidden = false
-			self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(TravelLocationsViewController.edit))
+			navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(TravelLocationsViewController.edit))
 		}
 			
 		else if editingPins {
-			self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: #selector(TravelLocationsViewController.edit))
+			navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: #selector(TravelLocationsViewController.edit))
 			editingPins = false
 			deletePinsLabel.hidden = true
 		}
@@ -176,7 +174,7 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 					sharedContext.deleteObject(selectedPin!)
 					
 					// Deleting selected pin on map
-					self.mapView.removeAnnotation(annotation)
+					mapView.removeAnnotation(annotation)
 					
 					// Save the chanages to core data
 					CoreDataStack.sharedInstance().saveContext()
@@ -202,7 +200,6 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 			viewController.pin = selectedPin
 		}
 	}
-
-
+	
 }
 

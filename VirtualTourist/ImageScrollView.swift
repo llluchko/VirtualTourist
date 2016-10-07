@@ -11,7 +11,6 @@ import UIKit
 
 class ImageScrollView: UIViewController {
 	
-	
 	@IBOutlet weak var myImageView: UIImageView!
 	
 	var selectedImage: String = ""
@@ -27,8 +26,7 @@ class ImageScrollView: UIViewController {
 		
 		let imageUrl = NSURL(string:self.selectedImage)
 		let imageData = NSData(contentsOfURL: imageUrl!)
-		if (imageData != nil)
-		{
+		if (imageData != nil) {
 			self.myImageView.image  = UIImage(data: imageData!)
 		}
 		
