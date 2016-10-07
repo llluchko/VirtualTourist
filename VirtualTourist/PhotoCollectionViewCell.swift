@@ -20,7 +20,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 		super.prepareForReuse()
 		
 		if photoView.image == nil {
-			activityIndicator.startAnimating()
+			dispatch_async(dispatch_get_main_queue()) {
+				self.activityIndicator.startAnimating()
+			}
 		}
 	}
 	

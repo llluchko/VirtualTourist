@@ -292,38 +292,8 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, NSFetchedRe
 		print("Photo URL from the collection view is \(photo.url)")
 		
 		cell.photoView.image = photo.image
-		
-//		if let imageData = photo.imageData {
-//			
-//			cell.photoView.image = UIImage(data: imageData)
-//		
-//		} else{
-//			// Download the photo image
-//			FlickrClient.sharedInstance().downloadPhotoImage(photo, completionHandler: {
-//				imageData, success, error in
-//				
-//				if success {
-//					dispatch_async(dispatch_get_main_queue(), {
-//						CoreDataStack.sharedInstance().saveContext()
-//					})
-//				} else {
-//					dispatch_async(dispatch_get_main_queue(), {
-//						print("error downloading a new set of photos")
-//						//self.bottomButton.hidden = false
-//					})
-//				}
-//				// Update cells
-//				dispatch_async(dispatch_get_main_queue(), {
-//					self.reFetch()
-//					self.collectionView.reloadData()
-//				})
-//				
-//			})
-//		}
-//		
 		cell.deleteButton.hidden = true
 		cell.deleteButton.layer.setValue(indexPath, forKey: "indexPath")
-		
 		
 		// Trigger the action 'deletePhoto' when the button is tapped
 		//	cell.deleteButton.addTarget(self, action: #selector(PhotoAlbumViewController.deletePhoto(_:)), forControlEvents: UIControlEvents.TouchUpInside)
